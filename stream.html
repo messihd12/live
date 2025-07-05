@@ -2,49 +2,102 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>بث مباشر — جودة قابلة للتبديل</title>
+  <title>Dima Live 7 - بث مباشر</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { margin:0; background:#000; color:#fff; font-family:sans-serif; }
-    #player { position:relative; max-width:640px; margin:auto; }
-    video { width:100%; background:#000; }
-    #qualitySelect { position:absolute; top:10px; right:10px; z-index:2; }
+    body {
+      margin: 0;
+      background: #111;
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+    .video-container {
+      position: relative;
+      max-width: 1000px;
+      margin: 20px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0,0,0,0.8);
+    }
+    video {
+      width: 100%;
+      height: auto;
+      background: black;
+    }
+    .watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.08;
+      z-index: 2;
+      pointer-events: none;
+      width: 300px;
+    }
+    #qualitySelect {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 10;
+      background: #fff;
+      color: #000;
+      border-radius: 5px;
+      padding: 4px;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
-  <div id="player">
-    <video id="video" controls autoplay></video>
-    <select id="qualitySelect"><option>Auto</option></select>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script>
-    const video = document.getElementById('video');
-    const qualitySelect = document.getElementById('qualitySelect');
-    const src = 'https://dcb-fl-live.dtcdn.dazn.com/129zf4j7gj2551tw9iu3f66ctc/web/stream.m3u8?channel=2653&outlet=dazn-mena&plang=ar';
+<div class="video-container">
+  <!-- ✅ لوغو كـ خلفية شفافة -->
+  <img class="watermark" src="https://i.ibb.co/ZpY06ch3/Chat-GPT-Image-1-2025-05-45-02-removebg-preview.png" alt="Dima Live Logo">
+  
+  <!-- ✅ مشغل الفيديو -->
+  <video id="video" controls autoplay playsinline></video>
 
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(src);
-      hls.attachMedia(video);
+  <!-- ✅ قائمة الجودات -->
+  <select id="qualitySelect" style="display:none;"></select>
+</div>
 
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        qualitySelect.innerHTML = '<option value="-1">Auto</option>' +
-          hls.levels.map((l, i) =>
-            `<option value="${i}">${l.height}p (${Math.round(l.bitrate/1000)}kbps)</option>`
-          ).join('');
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+  const video = document.getElementById('video');
+  const qualitySelect = document.getElementById('qualitySelect');
+  let hls;
+
+  // ✅ رابط البث الرئيسي هنا (تستطيع تغييره لاحقاً)
+  const streamUrl = "https://dcb-fl-live.dtcdn.dazn.com/129zf4j7gj2551tw9iu3f66ctc/web/stream.m3u8?channel=2653&outlet=dazn-mena&plang=ar";
+
+  function playStream(url) {
+    if (hls) hls.destroy();
+    hls = new Hls();
+    hls.loadSource(url);
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+      const levels = hls.levels;
+      qualitySelect.innerHTML = "";
+      qualitySelect.style.display = "block";
+
+      levels.forEach((level, i) => {
+        const option = document.createElement("option");
+        option.value = i;
+        option.text = `${level.height}p`;
+        qualitySelect.appendChild(option);
       });
 
-      qualitySelect.addEventListener('change', () => {
-        const level = parseInt(qualitySelect.value);
-        hls.currentLevel = level >= 0 ? level : -1;
-      });
+      qualitySelect.onchange = () => {
+        hls.currentLevel = parseInt(qualitySelect.value);
+      };
 
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = src;
-    } else {
-      alert("متصفحك لا يدعم البث المباشر.");
-    }
-  </script>
+      video.play();
+    });
+  }
+
+  // ✅ تشغيل البث مباشرة
+  playStream(streamUrl);
+</script>
+
 </body>
 </html>
