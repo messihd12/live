@@ -11,6 +11,7 @@
       font-family: Arial, sans-serif;
       color: #fff;
     }
+
     .video-container {
       position: relative;
       max-width: 1000px;
@@ -19,11 +20,14 @@
       overflow: hidden;
       box-shadow: 0 0 15px rgba(0,0,0,0.8);
     }
+
     video {
       width: 100%;
       height: auto;
       background: black;
+      display: block;
     }
+
     .watermark {
       position: absolute;
       top: 50%;
@@ -34,6 +38,7 @@
       pointer-events: none;
       width: 300px;
     }
+
     #qualitySelect {
       position: absolute;
       top: 10px;
@@ -45,18 +50,27 @@
       padding: 4px;
       font-size: 14px;
     }
+
+    /* لوغو داخل fullscreen */
+    :fullscreen .watermark,
+    :-webkit-full-screen .watermark,
+    :-moz-full-screen .watermark {
+      position: absolute !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 300px !important;
+      z-index: 2 !important;
+    }
   </style>
 </head>
 <body>
 
-<div class="video-container">
-  <!-- ✅ لوغو كـ خلفية شفافة -->
+<div class="video-container" id="videoContainer">
+  <!-- ✅ لوغو ثابت وسط الشاشة -->
   <img class="watermark" src="https://i.ibb.co/ZpY06ch3/Chat-GPT-Image-1-2025-05-45-02-removebg-preview.png" alt="Dima Live Logo">
   
-  <!-- ✅ مشغل الفيديو -->
   <video id="video" controls autoplay playsinline></video>
-
-  <!-- ✅ قائمة الجودات -->
   <select id="qualitySelect" style="display:none;"></select>
 </div>
 
@@ -66,7 +80,6 @@
   const qualitySelect = document.getElementById('qualitySelect');
   let hls;
 
-  // ✅ رابط البث الرئيسي هنا (تستطيع تغييره لاحقاً)
   const streamUrl = "https://dcb-fl-live.dtcdn.dazn.com/129zf4j7gj2551tw9iu3f66ctc/web/stream.m3u8?channel=2653&outlet=dazn-mena&plang=ar";
 
   function playStream(url) {
@@ -95,7 +108,6 @@
     });
   }
 
-  // ✅ تشغيل البث مباشرة
   playStream(streamUrl);
 </script>
 
