@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>بث مباشر — جودة قابلة للتبديل</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { margin:0; background:#000; color:#fff; font-family:sans-serif; }
+    #player { position:relative; max-width:640px; margin:auto; }
+    video { width:100%; background:#000; }
+    #qualitySelect { position:absolute; top:10px; right:10px; z-index:2; }
+  </style>
+</head>
+<body>
+  <div id="player">
+    <video id="video" controls autoplay></video>
+    <select id="qualitySelect"><option>Auto</option></select>
+  </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    const video = document.getElementById('video');
+    const qualitySelect = document.getElementById('qualitySelect');
+    const src = 'https://dcb-fl-live.dtcdn.dazn.com/129zf4j7gj2551tw9iu3f66ctc/web/stream.m3u8?channel=2653&outlet=dazn-mena&plang=ar';
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(src);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        qualitySelect.innerHTML = '<option value="-1">Auto</option>' +
+          hls.levels.map((l, i) =>
+            `<option value="${i}">${l.height}p (${Math.round(l.bitrate/1000)}kbps)</option>`
+          ).join('');
+      });
+
+      qualitySelect.addEventListener('change', () => {
+        const level = parseInt(qualitySelect.value);
+        hls.currentLevel = level >= 0 ? level : -1;
+      });
+
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+    } else {
+      alert("متصفحك لا يدعم البث المباشر.");
+    }
+  </script>
+</body>
+</html>
