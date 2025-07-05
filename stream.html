@@ -1,101 +1,158 @@
-<b:widget-setting name='content'>
-
-<div style="text-align:center; margin-bottom:20px; background:#c62828; padding:10px; border-radius:8px;">
-  <img src="https://i.ibb.co/ZpY06ch3/Chat-GPT-Image-1-2025-05-45-02-removebg-preview.png" alt="Dima Live 7" style="max-width:100px; height:auto;" />
-  <h1 style="color:#fff; font-size:30px; margin:10px 0 0;">Dima Live 7</h1>
-  <p style="color:#ffe082; margin:5px 0 0; font-size:14px;">بث مباشر لجميع المباريات بجودات متعددة وبدون تقطيع</p>
-</div>
-
-<div class="container" style="max-width:1000px;margin:auto;padding:10px;display:flex;flex-direction:column;gap:20px;background:#1e1e1e;color:#fff;border-radius:8px;">
-  <div class="ad-banner">
-    <script type='text/javascript' src='//pl27049411.profitableratecpm.com/fc/96/aa/fc96aa5e46c4b6b7d29d24d08400f88c.js'></script>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dima Live 7</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <style>
+    body {
+      background: #1e1e1e;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      text-align: center;
+      background: #c62828;
+      padding: 10px;
+    }
+    .header img {
+      max-width: 100px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 10px;
+    }
+    .video-player {
+      position: relative;
+    }
+    video {
+      width: 100%;
+      border-radius: 8px;
+      background: black;
+    }
+    select {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #fff;
+      border-radius: 4px;
+      padding: 4px;
+      font-size: 12px;
+    }
+    .match-list {
+      list-style: none;
+      padding: 0;
+    }
+    .match-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #3a3a3a;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .ad-banner {
+      margin: 10px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="https://i.ibb.co/ZpY06ch3/Chat-GPT-Image-1-2025-05-45-02-removebg-preview.png" alt="Dima Live 7">
+    <h1>Dima Live 7</h1>
+    <p>بث مباشر لجميع المباريات بجودات متعددة وبدون تقطيع</p>
   </div>
 
-  <div class="video-player" style="position:relative;">
-    <video id="video" controls autoplay playsinline style="width:100%;border-radius:8px;background:black;"></video>
-    <select id="qualitySelect" style="display:none;position:absolute;top:10px;right:10px;background:#fff;border-radius:4px;padding:4px;font-size:12px;"></select>
-    <div style="margin-top:10px;text-align:center;"></div>
+  <div class="container">
     <div class="ad-banner">
-      <script type='text/javascript' src='//pl27049411.profitableratecpm.com/fc/96/aa/fc96aa5e46c4b6b7d29d24d08400f88c.js'></script>
+      <script src="//pl27049411.profitableratecpm.com/fc/96/aa/fc96aa5e46c4b6b7d29d24d08400f88c.js"></script>
+    </div>
+
+    <div class="video-player">
+      <video id="video" controls autoplay playsinline></video>
+      <select id="qualitySelect" style="display:none;"></select>
+    </div>
+
+    <ul class="match-list" id="matchList">
+      <li data-url="https://dcb-fl-live.dtcdn.dazn.com/129zf4j7gj2551tw9iu3f66ctc/web/stream.m3u8?channel=2653&outlet=dazn-mena&plang=ar">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="https://ssl.gstatic.com/onebox/media/sports/logos/fCMxMMDF2AZPU7LzYKSlig_96x96.png" alt="فلومينينسي" style="width:40px;height:40px;border-radius:50%;">
+          <span>فلومينينسي</span>
+        </div>
+        <span style="color:#cfd8dc">20:00 GMT</span>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span>الهلال</span>
+          <img src="https://ssl.gstatic.com/onebox/media/sports/logos/HGVsnyWvMiGVotxhgicdSQ_96x96.png" alt="الهلال" style="width:40px;height:40px;border-radius:50%;">
+        </div>
+      </li>
+    </ul>
+
+    <div class="ad-banner">
+      <script src="//pl27049411.profitableratecpm.com/fc/96/aa/fc96aa5e46c4b6b7d29d24d08400f88c.js"></script>
     </div>
   </div>
 
   <div style="position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; z-index: 9999; background: #000;">
-    <script type='text/javascript' src='//pl27049411.profitableratecpm.com/fc/96/aa/fc96aa5e46c4b6b7d29d24d08400f88c.js'></script>
+    <script src="//pl27049411.profitableratecpm.com/fc/96/aa/fc96aa5e46c4b6b7d29d24d08400f88c.js"></script>
   </div>
 
-  <ul class="match-list" id="matchList" style="list-style:none;padding:0;margin:0;">
-    <!-- 🟥 مباراة 1: إيطاليا × بلجيكا -->
-    <li data-url="https://dcb-fl-live.dtcdn.dazn.com/129zf4j7gj2551tw9iu3f66ctc/web/stream.m3u8?channel=2653&outlet=dazn-mena&plang=ar
-" style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;margin-bottom:10px;background:#3a3a3a;border-radius:6px;font-weight:bold;cursor:pointer;">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <img src="https://ssl.gstatic.com/onebox/media/sports/logos/fCMxMMDF2AZPU7LzYKSlig_96x96.png" alt="فلومينينسي" style="width:40px;height:40px;border-radius:50%;" />
-        <span>فلومينينسي</span>
-      </div>
-      <span style="color:#cfd8dc">20:00 GMT</span>
-      <div style="display:flex;align-items:center;gap:10px;">
-        <span>الهلال</span>
-        <img src="https://ssl.gstatic.com/onebox/media/sports/logos/HGVsnyWvMiGVotxhgicdSQ_96x96.png" alt="الهلال" style="width:40px;height:40px;border-radius:50%;" />
-      </div>
-    </li>
+  <script>
+    const video = document.getElementById('video');
+    const qualitySelect = document.getElementById('qualitySelect');
+    const matchList = document.getElementById('matchList');
+    let hls;
 
-    <!-- إعلان -->
-    <div class="ad-banner">
-      <script type='text/javascript' src='//pl27049411.profitableratecpm.com/fc/96/aa/fc96aa5e46c4b6b7d29d24d08400f88c.js'></script>
-    </div>
-  </ul>
-</div>
+    function playStream(url) {
+      if (hls) hls.destroy();
+      hls = new Hls();
+      hls.loadSource(url);
+      hls.attachMedia(video);
 
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script>
-  const video = document.getElementById('video');
-  const qualitySelect = document.getElementById('qualitySelect');
-  const matchList = document.getElementById('matchList');
-  let hls;
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        const levels = hls.levels;
+        qualitySelect.innerHTML = "";
+        qualitySelect.style.display = "block";
 
-  function playStream(url) {
-    if (hls) hls.destroy();
-    hls = new Hls();
-    hls.loadSource(url);
-    hls.attachMedia(video);
+        levels.forEach((level, i) => {
+          const option = document.createElement("option");
+          option.value = i;
+          option.text = `${level.height}p`;
+          qualitySelect.appendChild(option);
+        });
 
-    hls.on(Hls.Events.MANIFEST_PARSED, function () {
-      const levels = hls.levels;
-      qualitySelect.innerHTML = "";
-      qualitySelect.style.display = "block";
+        qualitySelect.onchange = () => {
+          hls.currentLevel = parseInt(qualitySelect.value);
+        };
 
-      levels.forEach((level, i) => {
-        const option = document.createElement("option");
-        option.value = i;
-        option.text = `${level.height}p`;
-        qualitySelect.appendChild(option);
+        video.play();
       });
+    }
 
-      qualitySelect.onchange = () => {
-        hls.currentLevel = parseInt(qualitySelect.value);
-      };
-
-      video.play();
+    const matchItems = matchList.querySelectorAll("li[data-url]");
+    matchItems.forEach(item => {
+      item.addEventListener("click", () => {
+        playStream(item.getAttribute("data-url"));
+      });
     });
-  }
 
-  const matchItems = matchList.querySelectorAll("li[data-url]");
-  matchItems.forEach(item => {
-    item.addEventListener("click", () => {
-      playStream(item.getAttribute("data-url"));
-    });
-  });
+    const firstMatch = matchList.querySelector("li[data-url]");
+    if (firstMatch) {
+      playStream(firstMatch.getAttribute("data-url"));
+    }
 
-  const firstMatch = matchList.querySelector("li[data-url]");
-  if (firstMatch) {
-    playStream(firstMatch.getAttribute("data-url"));
-  }
-
-  document.body.addEventListener("click", () => {
-    const pop = document.createElement('script');
-    pop.src = '//pl27049411.profitableratecpm.com/fc/96/aa/fc96aa5e46c4b6b7d29d24d08400f88c.js';
-    document.body.appendChild(pop);
-  }, { once: true });
-</script>
-
-</b:widget-setting>
+    document.body.addEventListener("click", () => {
+      const pop = document.createElement('script');
+      pop.src = '//pl27049411.profitableratecpm.com/fc/96/aa/fc96aa5e46c4b6b7d29d24d08400f88c.js';
+      document.body.appendChild(pop);
+    }, { once: true });
+  </script>
+</body>
+</html>
