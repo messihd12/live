@@ -1,117 +1,38 @@
+
 <!DOCTYPE html>
-<html lang="ar">
-<head>
-  <meta charset="UTF-8">
-  <title>Dima Live 7 - بث مباشر</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      margin: 0;
-      background: #111;
-      font-family: Arial, sans-serif;
-      color: #fff;
-    }
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SSC 1 Player</title>
+    <script src="https://cdn.jsdelivr.net/npm/shaka-player@4.3.5/dist/shaka-player.compiled.js"></script>
+  </head>
+  <body>
+    <h2>SSC 1 - MPEG-DASH with ClearKey</h2>
+    <video id="video" width="100%" height="auto" controls autoplay></video>
+    <script>
+      async function initPlayer() {
+        const video = document.getElementById('video');
+        const player = new shaka.Player(video);
 
-    .video-container {
-      position: relative;
-      max-width: 1000px;
-      margin: 20px auto;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 15px rgba(0,0,0,0.8);
-    }
+        window.player = player;
 
-    video {
-      width: 100%;
-      height: auto;
-      background: black;
-      display: block;
-    }
+        player.configure({
+          drm: {
+            clearKeys: {
+              'd84c325f36814f39bbe59080272b10c3': '550727de4c96ef1ecff874905493580f'
+            }
+          }
+        });
 
-    /* ✅ لوغو أعلى اليسار */
-    .watermark {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      opacity: 0.9;
-      z-index: 2;
-      pointer-events: none;
-      width: 100px;
-    }
+        try {
+          await player.load('https://ssc1-ak.akamaized.net/out/v1/c696e4819b55414388a1a487e8a45ca1/index.mpd');
+          console.log('The video has now been loaded!');
+        } catch (e) {
+          console.error('Error loading video', e);
+        }
+      }
 
-    #qualitySelect {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 10;
-      background: #fff;
-      color: #000;
-      border-radius: 5px;
-      padding: 4px;
-      font-size: 14px;
-    }
-
-    /* نفس اللوغو في وضع fullscreen */
-    :fullscreen .watermark,
-    :-webkit-full-screen .watermark,
-    :-moz-full-screen .watermark {
-      position: absolute !important;
-      top: 10px !important;
-      left: 10px !important;
-      width: 100px !important;
-      z-index: 10 !important;
-    }
-  </style>
-</head>
-<body>
-
-<div class="video-container" id="videoContainer">
-  <!-- ✅ لوغو أعلى اليسار -->
-  <img class="watermark" src="https://i.ibb.co/ZpY06ch3/Chat-GPT-Image-1-2025-05-45-02-removebg-preview.png" alt="Dima Live Logo">
-  
-  <!-- ✅ فيديو -->
-  <video id="video" controls autoplay playsinline></video>
-
-  <!-- ✅ اختيار الجودة -->
-  <select id="qualitySelect" style="display:none;"></select>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script>
-  const video = document.getElementById('video');
-  const qualitySelect = document.getElementById('qualitySelect');
-  let hls;
-
-  const streamUrl = "https://dcb-fl-live.dtcdn.dazn.com/129zf4j7gj2551tw9iu3f66ctc/web/stream.m3u8?channel=2653&outlet=dazn-mena&plang=ar";
-
-  function playStream(url) {
-    if (hls) hls.destroy();
-    hls = new Hls();
-    hls.loadSource(url);
-    hls.attachMedia(video);
-
-    hls.on(Hls.Events.MANIFEST_PARSED, function () {
-      const levels = hls.levels;
-      qualitySelect.innerHTML = "";
-      qualitySelect.style.display = "block";
-
-      levels.forEach((level, i) => {
-        const option = document.createElement("option");
-        option.value = i;
-        option.text = `${level.height}p`;
-        qualitySelect.appendChild(option);
-      });
-
-      qualitySelect.onchange = () => {
-        hls.currentLevel = parseInt(qualitySelect.value);
-      };
-
-      video.play();
-    });
-  }
-
-  playStream(streamUrl);
-</script>
-
-</body>
+      document.addEventListener('DOMContentLoaded', initPlayer);
+    </script>
+  </body>
 </html>
